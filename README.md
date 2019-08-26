@@ -1,5 +1,10 @@
 # Chinglish Chrome Extension
 
+Demo Video
+https://github.com/kangzeroo/static-assets-github-hosting/blob/master/VID_194660417_145334_575.mp4?raw=true
+
+![Extension Screenshot](https://raw.githubusercontent.com/kangzeroo/static-assets-github-hosting/master/Screen%20Shot%202019-08-26%20at%2012.40.56%20PM.png)
+
 ## TO RUN
 Visit chrome://extensions and make sure you are in developer mode. Click the "Load unpacked" button and select the `/chrome_extension` folder where our chrome extension lives. Now try out the addon!
 
