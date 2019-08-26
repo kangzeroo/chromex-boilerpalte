@@ -5,11 +5,16 @@ console.log('Starting the foreground script...')
 const initPanelLoad = () => {
     // create the root element and insert iframe
     var reactAppRoot = document.createElement('div');
-    reactAppRoot.innerHTML = `<div id="reactAppRoot" style="position:fixed;top:0;right:0;height:100%;z-index:99999;width:250px;"><iframe id="chinglish-chromex-iframe" style="width:100%;height:100%;"></iframe></div>`;
+    reactAppRoot.innerHTML = `<div id="reactAppRoot" style="position:fixed;top:0;right:0;height:100%;z-index:99999;width:350px;"><iframe id="chinglish-chromex-iframe" style="width:100%;height:100%;"></iframe></div>`;
     document.body.insertAdjacentElement('afterbegin', reactAppRoot)
     const iframe = document.getElementById("chinglish-chromex-iframe");  
     iframe.src = chrome.extension.getURL("index.html");
     iframe.frameBorder = 0;
+    // create the messaging broker between iframe & window
+    window.addEventListener("message", (e) => {
+      console.log(`foreground.js got a message! `, e)
+    }, false)
+    iframe.contentWindow.postMessage({ type: "handshake", message: "Hello from foreground.js" }, "*")
     // create the quick toggle button but by default keep it hidden
     var toggleButton = document.createElement('div')
     toggleButton.innerHTML = `<div id="chinglish-chromex-toggle-button" style="position: fixed; bottom: 0px; right: 0px; padding: 10px; display: none; z-index:99999; width: 100px; height: 50px; background-color: black; color: white; font-weight:bold; cursor: pointer; border: 3px solid white;">OPEN CHINGLISH</div>`
@@ -69,15 +74,15 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 // listen for messages from background.js including visibility:maximize
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        console.log(sender.tab ?
-                    "from a content script:" + sender.tab.url :
-                    "from the extension");
-        if (request.visibility === "maximize") {
-            handleVisibilityChange(request.visibility)
-        }
-});
+// chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//         console.log(sender.tab ?
+//                     "from a content script:" + sender.tab.url :
+//                     "from the extension");
+//         if (request.visibility === "maximize") {
+//             handleVisibilityChange(request.visibility)
+//         }
+// });
 
 
 // init a messaging connection btwn foreground and background
@@ -110,6 +115,8 @@ document.addEventListener('focusin', function(e) {
 document.addEventListener('mouseup', function(e) {
     console.log('onmouseup: ', e)
     console.log('document.getSelection() ', document.getSelection().toString())
+    const iframe = document.getElementById("chinglish-chromex-iframe")
+    iframe.contentWindow.postMessage({ type: "highlighted", message: document.getSelection().toString() }, "*")
 })
 
 // proof that we can just copy text without interacting with a DOM element
