@@ -1,3 +1,7 @@
+/*global chrome*/
+// allows React to access the chrome global var
+// https://medium.com/p/c5bfe45aaf36/responses/show
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

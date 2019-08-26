@@ -1,25 +1,32 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
+  "short_name": "Chinglish",
+  "name": "Chinglish Chrome Extension",
+  "browser_action": {
+    "default_title": "Open the popup"
+  },
+  "permissions": ["storage", "activeTab", "tabs"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }	    
+      "matches": ["<all_urls>"],
+      "run_at": "document_end",
+      "js": ["foreground.js"]
+    }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "icons": {
+    "16": "favicon.ico",
+    "48": "favicon.ico",
+   "128": "logo192.png"
+  },
+  "version": "1.0",
+  "manifest_version": 2,
+  "externally_connectable": {
+    "ids": ["*"],
+    "matches": ["*://*.chrome.com/*"]
+  },
+  "web_accessible_resources" : ["index.html"],
+  "content_security_policy": "script-src 'self' 'sha256-Dk3UX4zTmKKYoXe1qM/Z6Xy1GzWMhfIt0ZGsO/uGF3o='; object-src 'self'"
 }

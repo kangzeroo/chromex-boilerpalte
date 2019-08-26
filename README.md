@@ -1,68 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Chinglish Chrome Extension
 
-## Available Scripts
+## TO RUN
+Visit chrome://extensions and make sure you are in developer mode. Click the "Load unpacked" button and select the `/chrome_extension` folder where our chrome extension lives. Now try out the addon!
 
-In the project directory, you can run:
+## TO DO
+- Convert from ReactJS to Chrome Extension (may need to play around with key event listeners and override input values)
+- Get the webpage messaging from react to foreground.js working so that we can do things like minimize the panel, move it to the left/right, open it... etc
+- Ability to open/close the panel via browserbutton or rightclick contextmenu. plus memory of it being open or closed.
 
-### `npm start`
+## USEFUL LINKS
+- [Neural Pinyin Predictor](https://github.com/Kyubyong/neural_chinese_transliterator)
+- [Chinese Text Decomposer](https://github.com/nieldlr/hanzi)
+- [Strip Character Accents](https://gist.github.com/sindresorhus/4705780)
+- [Pinyin REST](https://www.npmjs.com/package/pinyin-rest)
+- [Google AutoML Language](https://cloud.google.com/translate/docs/intro-to-v3)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## RELATED RESOURCES
+- [Previous Repo](https://github.com/kangzeroo/Chinglish-Chrome-Keyboard)
+- [Main Tutorial](https://blog.usejournal.com/making-an-interactive-chrome-extension-with-react-524483d7aa5d)
+- [Comprehensive Tutorial](https://itnext.io/create-chrome-extension-with-reactjs-using-inject-page-strategy-137650de1f39)
+- [With create-react-app](https://medium.com/@gilfink/building-a-chrome-extension-using-react-c5bfe45aaf36)
