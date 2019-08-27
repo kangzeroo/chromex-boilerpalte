@@ -7,12 +7,11 @@ const initPanelLoad = () => {
     var reactAppRoot = document.createElement('div');
     reactAppRoot.innerHTML = `<div id="reactAppRoot" style="position:fixed;top:0;right:0;height:100%;z-index:99999;width:350px;"><iframe id="chinglish-chromex-iframe" style="width:100%;height:100%;"></iframe></div>`;
     document.body.insertAdjacentElement('afterbegin', reactAppRoot)
-    const iframe = document.getElementById("chinglish-chromex-iframe");  
+    const iframe = document.getElementById("chinglish-chromex-iframe");
     iframe.src = chrome.extension.getURL("index.html");
     iframe.frameBorder = 0;
     // create the messaging broker between iframe & window
     window.addEventListener("message", (e) => {
-      console.log(`foreground.js got a message! `, e)
     }, false)
     iframe.contentWindow.postMessage({ type: "handshake", message: "Hello from foreground.js" }, "*")
     // create the quick toggle button but by default keep it hidden
@@ -26,7 +25,6 @@ const initPanelLoad = () => {
     document.body.insertAdjacentElement('afterbegin', toggleButton)
     // check storage for settings on visibility and position
     chrome.storage.sync.get(['position','visibility'], function({ position, visibility }) {
-        console.log(`Visibility is ${visibility}, position is ${position}`)
         handlePositionChange(position)
         handleVisibilityChange(visibility)
     });
@@ -48,7 +46,6 @@ const handlePositionChange = (position) => {
 }
 
 const handleVisibilityChange = (visibility) => {
-    console.log("handleVisibilityChange: Visibility is changing to ", visibility)
     if (visibility === 'maximized') {
         document.getElementById("reactAppRoot").style.display = '';
         document.getElementById("chinglish-chromex-toggle-button").style.display = 'none';
@@ -62,8 +59,6 @@ const handleVisibilityChange = (visibility) => {
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (var key in changes) {
       const { oldValue, newValue } = changes[key];
-      console.log(`chrome.storage.onChanged:${key} oldValue: `, oldValue)
-      console.log(`chrome.storage.onChanged:${key} newValue: `, newValue)
       if (key === 'position') {
           handlePositionChange(newValue)
       }
@@ -113,8 +108,6 @@ document.addEventListener('focusin', function(e) {
 
 // proof that we can get read mouse highlighted text
 document.addEventListener('mouseup', function(e) {
-    console.log('onmouseup: ', e)
-    console.log('document.getSelection() ', document.getSelection().toString())
     const iframe = document.getElementById("chinglish-chromex-iframe")
     iframe.contentWindow.postMessage({ type: "highlighted", message: document.getSelection().toString() }, "*")
 })
