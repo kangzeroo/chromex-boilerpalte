@@ -9,9 +9,10 @@ https://github.com/kangzeroo/static-assets-github-hosting/blob/master/VID_194660
 Visit chrome://extensions and make sure you are in developer mode. Click the "Load unpacked" button and select the `/chrome_extension` folder where our chrome extension lives. Now try out the addon!
 
 ## TO DO
-- Convert from ReactJS to Chrome Extension (may need to play around with key event listeners and override input values)
-- Get the webpage messaging from react to foreground.js working so that we can do things like minimize the panel, move it to the left/right, open it... etc
-- Ability to open/close the panel via browserbutton or rightclick contextmenu. plus memory of it being open or closed.
+- Figure out how to get a hanzi-to-pinyin api working w/o running into stupid Typescript typing issues
+- Add text-to-speech for translated words
+- Playback the translations word for word
+- better async play of audio (currently using a shitty setTimeout)
 
 ## USEFUL LINKS
 - [Neural Pinyin Predictor](https://github.com/Kyubyong/neural_chinese_transliterator)
@@ -19,6 +20,8 @@ Visit chrome://extensions and make sure you are in developer mode. Click the "Lo
 - [Strip Character Accents](https://gist.github.com/sindresorhus/4705780)
 - [Pinyin REST](https://www.npmjs.com/package/pinyin-rest)
 - [Google AutoML Language](https://cloud.google.com/translate/docs/intro-to-v3)
+- [Google Transliteration](https://www.google.com/inputtools/services/features/transliteration.html)
+- [Text to Speech](https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize)
 
 ## RELATED RESOURCES
 - [Previous Repo](https://github.com/kangzeroo/Chinglish-Chrome-Keyboard)
