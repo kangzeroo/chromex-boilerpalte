@@ -21,7 +21,7 @@ const App = () => {
       if (e.data.type === "highlighted") {
         if (e.data.message) {
           console.log("-------- TEXT ---------", e.data.message)
-          const token = document.getElementById("oauth-key").value
+          const token = localStorage.getItem('oauth-key') || ""
           setInput(e.data.message)
           translateText(e.data.message, token).then(({ text, pronounciation, audio }) => {
             setOutput(text)
@@ -84,7 +84,7 @@ const App = () => {
               close
             </a>
         </nav>
-        <input id="oauth-key" type="text" style={{ width: '100%', padding: '5px' }} />
+        <input id="oauth-key" type="text" onChange={(e) => localStorage.setItem('oauth-key', e.target.value)} style={{ width: '100%', padding: '5px' }} />
         <div style={{ width: '100%', height: 'auto', padding: '30px' }}>
           <img src={logo} className="App-logo" alt="logo" />
         </div>
