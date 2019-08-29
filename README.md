@@ -14,6 +14,10 @@ Visit chrome://extensions and make sure you are in developer mode. Click the "Lo
 - Playback the translations word for word
 - better async play of audio (currently using a shitty setTimeout)
 
+## DRAWING BOARD
+- [analyzeEntities](https://cloud.google.com/natural-language/docs/basics) to identify nouns
+- [word timestamps for text-to-speech](https://cloud.google.com/speech-to-text/docs/async-time-offsets#speech-async-recognize-gcs-nodejs)
+
 ## USEFUL LINKS
 - [Neural Pinyin Predictor](https://github.com/Kyubyong/neural_chinese_transliterator)
 - [Chinese Text Decomposer](https://github.com/nieldlr/hanzi)
