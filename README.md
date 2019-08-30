@@ -25,7 +25,8 @@ Visit chrome://extensions and make sure you are in developer mode. Click the "Lo
 - [Pinyin REST](https://www.npmjs.com/package/pinyin-rest)
 - [Google AutoML Language](https://cloud.google.com/translate/docs/intro-to-v3)
 - [Google Transliteration](https://www.google.com/inputtools/services/features/transliteration.html)
-- [Text to Speech](https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize)
+- [Google Text to Speech](https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize)
+- [Responsive Voice API $39/month](https://responsivevoice.org/)
 
 ## RELATED RESOURCES
 - [Previous Repo](https://github.com/kangzeroo/Chinglish-Chrome-Keyboard)
