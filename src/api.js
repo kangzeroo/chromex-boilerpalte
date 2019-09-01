@@ -1,7 +1,51 @@
 import axios from 'axios';
 import _ from 'lodash'
 
-export const translateText = (text, token) => {
+export const readText = (text, token, voicePenEnabled) => {
+  const p = new Promise((res, rej) => {
+    if (voicePenEnabled) {
+      const headers = {
+          headers: {
+              "Authorization": `Bearer ${token}`
+          }
+      }
+      axios.post(
+          `https://texttospeech.googleapis.com/v1beta1/text:synthesize`,
+          {
+            input: {
+              "text": text
+            },
+            voice: {
+              "languageCode": "en-US"
+            },
+            audioConfig: {
+              "audioEncoding": "OGG_OPUS"
+            }
+          },
+          headers
+        )
+        .then((audioContent) => {
+          const output = {
+            text: text,
+            audio: _.get(audioContent, ["data", "audioContent"])
+          }
+          res(output)
+        })
+        .catch((err) => {
+          const error = _.get(err, ["response", "data"], "err.response.data")
+          console.log("--------- ERROR ---------")
+          rej(error)
+        })
+    } else {
+      res({
+        text: text
+      })
+    }
+  })
+  return p
+}
+
+export const translateText = (text, token, voicePenEnabled) => {
   const p = new Promise((res, rej) => {
     const headers = {
         headers: {

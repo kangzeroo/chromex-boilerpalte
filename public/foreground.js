@@ -97,14 +97,14 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 
 // proof that we can manipulate <input />
-document.addEventListener('focusin', function(e) {
-    // console.log('focusin!', e)
-    // e.srcElement.value = "HELLO WORLD"
-    e.srcElement.addEventListener("keydown", event => {
-        // console.log(`Event with keyCode: ${event.keyCode}`, event)
-    })
-    // should unsubscribe from eventListener automatically on blur()
-})
+// document.addEventListener('focusin', function(e) {
+//     // console.log('focusin!', e)
+//     // e.srcElement.value = "HELLO WORLD"
+//     e.srcElement.addEventListener("keydown", event => {
+//         // console.log(`Event with keyCode: ${event.keyCode}`, event)
+//     })
+//     // should unsubscribe from eventListener automatically on blur()
+// })
 
 const iframe = document.getElementById("chinglish-chromex-iframe")
 

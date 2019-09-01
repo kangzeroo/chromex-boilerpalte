@@ -6,7 +6,7 @@ import './App.css';
 import _ from 'lodash';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { translateText } from './api.js'
+import { translateText, readText } from './api.js'
 
 const App = () => {
 
@@ -14,12 +14,12 @@ const App = () => {
   const [output, setOutput] = useState("")
   const [phonetics, setPhonetics] = useState([])
   const [audio, setAudio] = useState("")
+  const [playbackSpeed, setPlaybackSpeed] = useState(1)
+  const [voicePenEnabled, setVoicePenEnabled] = useState(true)
 
   useEffect(() => {
     // demo comms with parent
     window.parent.postMessage({ type: "handshake", message: "React says hello" }, "*")
-    // grab reference for future use
-    const mainAudio = document.getElementById("main-audio")
     // listen to "message" event and subscribe to its events
     const highlightEvents = fromEvent(window, "message").pipe(debounceTime(100))
     highlightEvents.subscribe((e) => {
@@ -28,7 +28,7 @@ const App = () => {
           // console.log("-------- TEXT ---------", e.data.message)
           const token = localStorage.getItem('oauth-key') || ""
           setInput(e.data.message)
-          translateText(e.data.message, token).then(({ text, pronounciation, audio }) => {
+          readText(e.data.message, token, voicePenEnabled).then(({ text, pronounciation, audio }) => {
             setOutput(text)
             setPhonetics(pronounciation)
             setAudio(audio)
@@ -40,6 +40,7 @@ const App = () => {
     })
 
     // pause audio on spacebar
+    const mainAudio = document.getElementById("main-audio")
     window.document.addEventListener("keydown", function(e) {
         if (e.code === "Space") {
           if (!mainAudio.paused) {
@@ -51,16 +52,20 @@ const App = () => {
           }
         }
     })
+  }, [])
 
+  useEffect(() => {
     // start autoplay
+    const mainAudio = document.getElementById("main-audio")
     mainAudio.oncanplaythrough = async () => {
       try {
+        mainAudio.playbackRate = playbackSpeed;
         await mainAudio.play()
       } catch (e) {
         console.log(e)
       }
     }
-  }, [])
+  }, [playbackSpeed])
 
   const closeReactExtension = () => {
     chrome.storage.sync.set({visibility: 'miminized'}, function() {
@@ -70,6 +75,13 @@ const App = () => {
   const switchPosition = (side) => {
     chrome.storage.sync.set({position: side}, function() {
     })
+  }
+
+  const updatePlaybackSpeed = (e) => {
+    const speed = e.target.value
+    const mainAudio = document.getElementById("main-audio")
+    setPlaybackSpeed(speed)
+    mainAudio.playbackRate = speed;
   }
 
   return (
@@ -100,16 +112,13 @@ const App = () => {
             </a>
         </nav>
         <input id="oauth-key" type="text" onChange={(e) => localStorage.setItem('oauth-key', e.target.value)} style={{ width: '100%', padding: '5px' }} />
+        <input id="playback-speed" type="number" onChange={e => updatePlaybackSpeed(e)} min={0.1} max={4} />
         <div style={{ width: '100%', height: 'auto', padding: '30px' }}>
           <img src={logo} className="App-logo" alt="logo" />
         </div>
 
         <div style={{ width: '100%' }}>
-          <h1>{output}</h1>
-          <div>{phonetics.map(x => (<p>{x}</p>))}</div>
-          <p>
-            {input}
-          </p>
+          <h5>{output}</h5>
         </div>
         <audio id="main-audio" placeholder="OAuth Playground Google Access Token" controls src={`data:audio/ogg;base64,${audio}`} style={{ zIndex: "999999999999999999999" }} />
       </header>
