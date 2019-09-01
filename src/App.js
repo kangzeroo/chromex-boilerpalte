@@ -16,11 +16,16 @@ const App = () => {
   const [audio, setAudio] = useState("")
 
   useEffect(() => {
+    // demo comms with parent
+    window.parent.postMessage({ type: "handshake", message: "React says hello" }, "*")
+    // grab reference for future use
+    const mainAudio = document.getElementById("main-audio")
+    // listen to "message" event and subscribe to its events
     const highlightEvents = fromEvent(window, "message").pipe(debounceTime(100))
     highlightEvents.subscribe((e) => {
       if (e.data.type === "highlighted") {
         if (e.data.message) {
-          console.log("-------- TEXT ---------", e.data.message)
+          // console.log("-------- TEXT ---------", e.data.message)
           const token = localStorage.getItem('oauth-key') || ""
           setInput(e.data.message)
           translateText(e.data.message, token).then(({ text, pronounciation, audio }) => {
@@ -33,18 +38,28 @@ const App = () => {
         }
       }
     })
-    const mainAudio = document.getElementById("main-audio")
-    mainAudio.oncanplaythrough = async () => {
-      console.log('----> mainAudio.oncanplay')
-      if (!mainAudio.isPlaying) {
-        try {
-          await mainAudio.play()
-        } catch (e) {
-          console.log(e)
+
+    // pause audio on spacebar
+    window.document.addEventListener("keydown", function(e) {
+        if (e.code === "Space") {
+          if (!mainAudio.paused) {
+            try {
+              mainAudio.pause()
+            } catch (e) {
+              console.log(e)
+            }
+          }
         }
+    })
+
+    // start autoplay
+    mainAudio.oncanplaythrough = async () => {
+      try {
+        await mainAudio.play()
+      } catch (e) {
+        console.log(e)
       }
     }
-    window.parent.postMessage({ type: "handshake", message: "React says hello" }, "*")
   }, [])
 
   const closeReactExtension = () => {

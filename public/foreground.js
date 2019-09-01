@@ -98,26 +98,28 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 // proof that we can manipulate <input />
 document.addEventListener('focusin', function(e) {
-    console.log('focusin!', e)
+    // console.log('focusin!', e)
     // e.srcElement.value = "HELLO WORLD"
     e.srcElement.addEventListener("keydown", event => {
-        console.log(`Event with keyCode: ${event.keyCode}`, event)
+        // console.log(`Event with keyCode: ${event.keyCode}`, event)
     })
     // should unsubscribe from eventListener automatically on blur()
 })
 
+const iframe = document.getElementById("chinglish-chromex-iframe")
+
 // proof that we can get read mouse highlighted text
-document.addEventListener('mouseup', function(e) {
-    const iframe = document.getElementById("chinglish-chromex-iframe")
+document.addEventListener("mouseup", function(e) {
     iframe.contentWindow.postMessage({ type: "highlighted", message: document.getSelection().toString() }, "*")
+    iframe.contentWindow.focus()
 })
 
+
 // proof that we can just copy text without interacting with a DOM element
-// https://superuser.com/questions/173200/how-to-select-hyperlink-text-in-google-chrome
 // just hold alt while copying
+// https://superuser.com/questions/173200/how-to-select-hyperlink-text-in-google-chrome
 
 
-// can we make the screen smaller so that we're 
 
 
 // how many downloads do the other chinese apps have?
